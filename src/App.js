@@ -1,25 +1,51 @@
 import React, { Component } from "react";
 import "./App.css";
+import PokeItem from "./components/PokeItem/PokeItem";
+import SinglePokeInfo from "./components/SinglePokeInfo/SinglePokeInfo";
 
 class App extends Component {
   state = {
-    pokemon: {}
+    pokemon: {},
+    currentPokemon: null,
+    loading: false,
   };
 
   componentDidMount() {
-    this.fetchPokemon();
+    let cachedPokemon = JSON.parse(localStorage.getItem("allPokemon"));
+    if (cachedPokemon) {
+      this.setState({pokemon: cachedPokemon});
+    } else {
+      this.fetchPokemon();
+    }
   }
 
   fetchPokemon = () => {
     const url = "https://pokeapi.co/api/v2/";
-    fetch(url + "pokemon/?count=151")
+    this.setState({loading: true})
+    fetch(url + "pokemon/?results=151")
       .then(function(response) {
         return response.json();
       })
       .then(myJson => {
-        console.log(JSON.stringify(myJson));
-        this.setState({ pokemon: myJson.results });
+        localStorage.setItem("allPokemon", JSON.stringify(myJson.results));
+        this.setState({ pokemon: myJson.results, loading: false });
       });
+  }
+
+  fetchSinglePokemon = (pokeUrl) => {
+    console.log('fired')
+    let url = pokeUrl;
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState({ currentPokemon: myJson.results });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({error: error})
+      })
   }
 
   render() {
@@ -29,15 +55,18 @@ class App extends Component {
         <section className="pokeList">
           {this.state.pokemon[0] &&
             this.state.pokemon.map((pokemon, index) => {
-            return (
-              <figure key={index} className="singlePokemon">
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`} alt={pokemon.name} />
-                <h4 className="singlePokemon__name">{pokemon.name}</h4>
-              </figure>
-            )
+            return <PokeItem key={index} onClick={() => this.fetchSinglePokemon(pokemon.url)} pokemon={pokemon} index={index} />;
           })
           }
         </section>
+        {this.state.currentPokemon ? (
+          <section className="singlePokeInfo">
+            <SinglePokeInfo pokemon={this.state.currentPokemon} />
+          </section>
+        ) :
+        (
+          null
+        )}
       </div>
     );
   }
