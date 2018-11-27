@@ -1,0 +1,24 @@
+.singlePokeInfoWrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40vw;
+    height: 100%;
+    background: #F70008;
+    flex: 1 1;
+    box-shadow: -2px 0px 3px rgba(0, 0, 0, 0.5);
+  }
+  
+  .singlePokeInfoInner {
+    background: #fff;
+    margin: 0rem 2rem 2rem;
+    border-radius: 2px;
+  }
+
+  .pokeSidebarTopActions {
+    padding: 2rem;
+  }
+
+  .pokeSidebarBottomActions {
+    padding: 2rem;
+  }

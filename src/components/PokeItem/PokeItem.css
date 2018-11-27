@@ -1,0 +1,14 @@
+figure.singlePokemon {
+    flex: 1;
+    margin: 1rem;
+    cursor: pointer;
+  }
+  
+  figure.singlePokemon img {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .singlePokemon__name {
+    text-align: center;
+  }
