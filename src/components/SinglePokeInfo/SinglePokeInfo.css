@@ -41,12 +41,14 @@ figure.singlePokeInfo_data {
 .singlePokeInfo_data__types {
   display: flex;
   margin: 0rem 0 1rem;
+  text-transform: capitalize;
+  font-weight: 500;
 }
 
 .singlePokeInfo_data__type {
   background: #d4d4d4;
   display: block;
-  padding: 3px 6px;
+  padding: 5px 6px 3px;
   border-radius: 2px;
   font-size: 0.9rem;
   border: 1px solid #cacaca;
@@ -87,4 +89,9 @@ figure.singlePokeInfo_data {
 
 .singlePokeInfo_data__stat__label {
   font-weight: 600;
+}
+
+.singlePokeInfo_data__item__data,
+.singlePokeInfo_data__stat {
+  font-weight: 500;
 }

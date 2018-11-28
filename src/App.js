@@ -70,6 +70,18 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <div className="PokeDexTop">
+          <div className="PokeLight">
+            <div className="PokeLight_outer">
+              <div className="PokeLight_inner" />
+            </div>
+          </div>
+          <div className="PokeSmallLights">
+          <div className="pokeSmallLight red"></div>
+          <div className="pokeSmallLight yellow"></div>
+          <div className="pokeSmallLight green"></div>
+          </div>
+        </div>
         <div className="PokeDexWrapper">
           {this.state.loading && <Loader />}
           <div className="pokedex">
@@ -89,8 +101,9 @@ class App extends Component {
                 })}
             </section>
             {this.state.currentPokemon ? (
-              <PokeSidebar clearSidebar={() => this.setState({ currentPokemon: null })}>
-                {this.state.singlePokemonLoading && <Loader />}
+              <PokeSidebar
+                clearSidebar={() => this.setState({ currentPokemon: null })}
+              >
                 <SinglePokeInfo pokemon={this.state.currentPokemon} />
               </PokeSidebar>
             ) : null}
